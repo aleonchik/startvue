@@ -17,11 +17,8 @@
         Все остальное
     </div>
 
-    <div v-for="(el, index) in users" :key="index" className="user">
-        <h3>{{ el.name }}</h3>
-        <p>{{ el.email }} - <b>{{ el.pass }}</b></p>
-    </div>
-
+    <User v-for="(el, index) in users" :key="index" :user="el" :index="index" :deleteUser="deleteUser" />
+    
     <!-- <p>{{ userName }}</p> -->
     <!-- <p>{{ userPass }}</p> -->
     <!-- <p>{{ userEmail }}</p> -->
@@ -29,7 +26,11 @@
 
 
 <script>
+    import User from './components/User.vue'
+
     export default {
+        components: { User },
+
         data() {
             return {
                 users: [],
@@ -62,6 +63,10 @@
                     pass: this.userPass,
                     email: this.userEmail
                 })
+            },
+
+            deleteUser(index) {
+                this.users.splice(index, 1);
             }
         }
     }
